@@ -10,11 +10,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _on_button_down() -> void:
-	$"../TestLabel".text = "Test Successful!"
-	pass # Replace with function body.
 
-
-func _on_button_up() -> void:
-	$"../TestLabel".text = "Press Button to Test"
+func _on_pressed() -> void:
+	if $"../InputEdit".text != "":
+		$"../ThingList".add_item($"../InputEdit".text)
+		$"../InputEdit".text = ""
 	pass # Replace with function body.

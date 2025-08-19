@@ -1,61 +1,73 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvkl735cc732n"]
+[gd_scene load_steps=4 format=3 uid="uid://bvkl735cc732n"]
 
-[ext_resource type="Script" path="res://testbutton.gd" id="1_hrxv8"]
+[ext_resource type="Script" path="res://add_button.gd" id="1_yobdj"]
+[ext_resource type="Script" path="res://delete_button.gd" id="2_c5y6c"]
 
-[node name="Section" type="Control"]
-layout_mode = 3
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a8vpp"]
+
+[node name="Panel" type="Panel"]
+material = SubResource("CanvasItemMaterial_a8vpp")
+anchors_preset = -1
+anchor_left = 0.039
+anchor_top = 0.02
+anchor_right = 0.199264
+anchor_bottom = 0.945605
+offset_left = 22.072
+offset_top = 6.04
+offset_right = 207.448
+offset_bottom = 6.24799
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ThingList" type="ItemList" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 68.0
-offset_top = 16.0
-offset_right = -39.0
-offset_bottom = -23.0
+offset_top = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="InputEdit" type="LineEdit" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -51.5
-offset_top = -132.0
-offset_right = 46.5
-offset_bottom = -101.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Test button"
-script = ExtResource("1_hrxv8")
+anchors_preset = -1
+anchor_left = 1.15405
+anchor_top = 0.206667
+anchor_right = 1.657
+anchor_bottom = 0.207
+offset_right = -0.0900269
+offset_bottom = 30.8
+theme_override_colors/clear_button_color_pressed = Color(0.982343, 0.982342, 0.982342, 1)
+theme_override_colors/clear_button_color = Color(0.864675, 0.864675, 0.864675, 1)
+theme_override_colors/font_outline_color = Color(0.654232, 0.654232, 0.654232, 1)
+placeholder_text = "Enter here"
+metadata/_edit_use_anchors_ = true
 
-[node name="TestLabel" type="Label" parent="."]
+[node name="AddButton" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -70.5
-offset_top = 150.0
-offset_right = 85.5
-offset_bottom = 173.0
-grow_horizontal = 2
-text = "Press Button to Test"
+anchors_preset = -1
+anchor_left = 1.19459
+anchor_top = 0.283333
+anchor_right = 1.37568
+anchor_bottom = 0.335
+offset_right = 3.05176e-05
+offset_bottom = 1.52588e-05
+text = "Add"
+script = ExtResource("1_yobdj")
+metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="DeleteButton" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -137.0
-offset_top = -29.0
-offset_right = 137.0
-offset_bottom = 29.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "SSFKDF"
+anchors_preset = -1
+anchor_left = 1.43243
+anchor_top = 0.283333
+anchor_right = 1.62432
+anchor_bottom = 0.336667
+text = "Delete"
+script = ExtResource("2_c5y6c")
+metadata/_edit_use_anchors_ = true
 
-[connection signal="button_down" from="Button" to="Button" method="_on_button_down"]
-[connection signal="button_up" from="Button" to="Button" method="_on_button_up"]
+[connection signal="pressed" from="AddButton" to="AddButton" method="_on_pressed"]
+[connection signal="pressed" from="DeleteButton" to="DeleteButton" method="_on_pressed"]
