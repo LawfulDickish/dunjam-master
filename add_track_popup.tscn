@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=3 uid="uid://hvkjwb6jw32m"]
+
+[ext_resource type="Script" path="res://add_track_popup.gd" id="1_4rbui"]
+[ext_resource type="PackedScene" uid="uid://p4edf6k1vy48" path="res://tag_track.tscn" id="2_ym7ur"]
+
+[node name="AddTrackPopup" type="Control"]
+layout_mode = 3
+anchor_left = -0.000868056
+anchor_right = 0.419271
+anchor_bottom = 0.683642
+script = ExtResource("1_4rbui")
+metadata/_edit_use_anchors_ = true
+
+[node name="TrackSelect" type="FileDialog" parent="."]
+auto_translate_mode = 1
+title = "Open a File"
+size = Vector2i(500, 500)
+unresizable = true
+popup_window = true
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mp3", "*.ogg", "*.wav", "mp3")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FilePath" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 25.0
+offset_top = 31.0
+offset_right = -111.0
+offset_bottom = 62.0
+editable = false
+
+[node name="FileSelectButton" type="Button" parent="FilePath"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 18.0
+offset_right = 86.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Select..."
+
+[node name="NameInput" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 137.0
+offset_top = 79.0
+offset_right = -23.0
+offset_bottom = 110.0
+grow_horizontal = 2
+placeholder_text = "Name"
+
+[node name="Label" type="Label" parent="NameInput"]
+layout_mode = 0
+offset_left = -112.0
+offset_top = 4.0
+offset_right = -19.0
+offset_bottom = 27.0
+text = "Track Name"
+
+[node name="TagTrack" parent="." instance=ExtResource("2_ym7ur")]
+
+[node name="SongProgress" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 25.0
+offset_top = 136.0
+offset_right = -25.0
+offset_bottom = 164.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SongProgress"]
+
+[node name="Label" type="Label" parent="SongProgress"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 79.0
+offset_bottom = 63.0
+text = "0:00 / 0:00"
+
+[node name="PlayPause" type="Button" parent="SongProgress"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 36.0
+offset_right = 146.0
+offset_bottom = 67.0
+text = ">  ||
+"
+
+[connection signal="file_selected" from="TrackSelect" to="." method="_on_track_select_file_selected"]
+[connection signal="pressed" from="FilePath/FileSelectButton" to="." method="_on_file_select_button_pressed"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://p4edf6k1vy48"]
+
+[ext_resource type="Script" path="res://tag_track.gd" id="1_xctgr"]
+
+[sub_resource type="AudioStream" id="AudioStream_104dd"]
+
+[node name="TagTrack" type="Node"]
+script = ExtResource("1_xctgr")
+metadata/Tags = {}
+metadata/Track = SubResource("AudioStream_104dd")

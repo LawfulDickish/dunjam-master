@@ -1,10 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvkl735cc732n"]
+[gd_scene load_steps=3 format=3 uid="uid://bvkl735cc732n"]
 
 [ext_resource type="Script" path="res://main_window.gd" id="1_kjmxv"]
-[ext_resource type="PackedScene" uid="uid://hvkjwb6jw32m" path="res://add_track_popup.tscn" id="2_hufrx"]
 
 [sub_resource type="AudioStream" id="AudioStream_gn6wl"]
-resource_name = "test"
 
 [node name="Main" type="Node"]
 script = ExtResource("1_kjmxv")
@@ -43,6 +41,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_bottom = -42.0
 max_text_lines = 3
+item_count = 5
+item_0/text = "Test"
+item_1/text = "test"
+item_2/text = "test"
+item_3/text = "test"
+item_4/text = "test"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelHolder/JukeboxSelection"]
 layout_mode = 1
@@ -95,33 +99,6 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="BehaviorSection" type="Control" parent="PanelHolder/TrackDependencies"]
-layout_mode = 2
-anchors_preset = 0
-anchor_left = 0.402123
-anchor_right = 0.995283
-anchor_bottom = 1.0
-metadata/_edit_use_anchors_ = true
-
-[node name="ColorRect" type="ColorRect" parent="PanelHolder/TrackDependencies/BehaviorSection"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 1, 1, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="BehaviorsPanel" type="HFlowContainer" parent="PanelHolder/TrackDependencies/BehaviorSection"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
 [node name="InfoSection" type="Control" parent="PanelHolder/TrackDependencies"]
 layout_mode = 2
 anchors_preset = 0
@@ -150,62 +127,35 @@ offset_top = -73.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TrackName" type="Label" parent="PanelHolder/TrackDependencies/InfoSection/Player Section"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "TRACK NAME HERE"
-
-[node name="CurrentTrack" type="AudioStreamPlayer" parent="PanelHolder/TrackDependencies/InfoSection/Player Section"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PanelHolder/TrackDependencies/InfoSection/Player Section"]
 stream = SubResource("AudioStream_gn6wl")
 max_polyphony = 2
 
-[node name="PlayTrack" type="Button" parent="PanelHolder/TrackDependencies/InfoSection/Player Section"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+[node name="BehaviorSection" type="Control" parent="PanelHolder/TrackDependencies"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.402123
+anchor_right = 0.995283
 anchor_bottom = 1.0
-offset_left = -75.5
-offset_top = -37.0
-offset_right = -28.5
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "PLAY"
+metadata/_edit_use_anchors_ = true
 
-[node name="StopTrack" type="Button" parent="PanelHolder/TrackDependencies/InfoSection/Player Section"]
+[node name="ColorRect" type="ColorRect" parent="PanelHolder/TrackDependencies/BehaviorSection"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 24.5
-offset_top = -38.0
-offset_right = 73.5
-offset_bottom = -7.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "STOP"
+grow_vertical = 2
+color = Color(0, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="PopupWindow" type="ConfirmationDialog" parent="."]
-title = "Add TagTrack..."
-position = Vector2i(0, 36)
-size = Vector2i(500, 500)
-
-[node name="AddTrackPopup" parent="PopupWindow" instance=ExtResource("2_hufrx")]
-offset_left = 8.43403
-offset_top = 8.0
-offset_right = 282.365
-offset_bottom = 109.179
+[node name="BehaviorsPanel" type="HFlowContainer" parent="PanelHolder/TrackDependencies/BehaviorSection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="PanelHolder/JukeboxSelection/ScrollContainer/Buttons/CenterContainer/AddTrack" to="." method="_on_add_track_pressed"]
-[connection signal="pressed" from="PanelHolder/TrackDependencies/InfoSection/Player Section/PlayTrack" to="." method="_on_play_track_pressed"]
-[connection signal="pressed" from="PanelHolder/TrackDependencies/InfoSection/Player Section/StopTrack" to="." method="_on_stop_track_pressed"]

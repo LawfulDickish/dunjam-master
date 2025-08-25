@@ -1,4 +1,4 @@
-extends Button
+extends Node
 
 
 # Called when the node enters the scene tree for the first time.
@@ -10,9 +10,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func load_mp3(path):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var sound = AudioStreamMP3.new()
+	sound.data = file.get_buffer(file.get_length())
+	return sound
 
-func _on_pressed() -> void:
-	if $"../InputEdit".text != "":
-		$"../ThingList".add_item($"../InputEdit".text)
-		$"../InputEdit".text = ""
-	pass # Replace with function body.
+func addtrack(path) -> void:
+	$".".Track = load_mp3(path)
+	pass

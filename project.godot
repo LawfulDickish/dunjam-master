@@ -13,6 +13,7 @@ config_version=5
 config/name="Dunjam Master"
 run/main_scene="res://main window.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [dotnet]
