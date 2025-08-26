@@ -1,5 +1,6 @@
 extends Node
 
+var track
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,5 +18,5 @@ func load_mp3(path):
 	return sound
 
 func addtrack(path) -> void:
-	$".".Track = load_mp3(path)
+	$".".track = load_mp3(path)
 	pass

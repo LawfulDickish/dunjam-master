@@ -80,6 +80,9 @@ offset_left = 25.0
 offset_top = 136.0
 offset_right = -25.0
 offset_bottom = 164.0
+grow_horizontal = 2
+max_value = 0.0
+step = 0.01
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SongProgress"]
 
@@ -96,8 +99,13 @@ offset_left = 102.0
 offset_top = 36.0
 offset_right = 146.0
 offset_bottom = 67.0
+toggle_mode = true
 text = ">  ||
 "
 
 [connection signal="file_selected" from="TrackSelect" to="." method="_on_track_select_file_selected"]
 [connection signal="pressed" from="FilePath/FileSelectButton" to="." method="_on_file_select_button_pressed"]
+[connection signal="drag_ended" from="SongProgress" to="." method="_on_song_progress_drag_ended"]
+[connection signal="drag_started" from="SongProgress" to="." method="_on_song_progress_drag_started"]
+[connection signal="value_changed" from="SongProgress" to="." method="_on_song_progress_value_changed"]
+[connection signal="toggled" from="SongProgress/PlayPause" to="." method="_on_play_pause_toggled"]
