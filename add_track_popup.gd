@@ -22,8 +22,10 @@ func _on_file_select_button_pressed() -> void:
 func _on_track_select_file_selected(path: String) -> void:
 	$TagTrack.addtrack(path)
 	$SongProgress/AudioStreamPlayer.stream = $TagTrack.track
-	$SongProgress.value = 0
 	$SongProgress.max_value = $SongProgress/AudioStreamPlayer.stream.get_length()
+	$SongProgress.value = 0
+	$SongProgress/Timecode.text = timecode_text($SongProgress.value,$SongProgress.max_value)
+	$SongProgress/PlayPause.button_pressed = false
 	
 	$FilePath.text = path
 	$NameInput.text = path.substr(path.rfind("/")+1,path.rfind(".")-path.rfind("/")-1) 
@@ -40,13 +42,18 @@ func _on_play_pause_toggled(toggled_on: bool) -> void:
 
 
 func _on_song_progress_value_changed(value: float) -> void:
-	$SongProgress/Label.text = "%d:%02d / %d:%02d" % [
-		$SongProgress.value / 60 , ($SongProgress.value as int) % 60,
-		$SongProgress.max_value / 60 , ($SongProgress.max_value as int) % 60]
+	$SongProgress/Timecode.text = timecode_text($SongProgress.value,$SongProgress.max_value)
 	if $SongProgress/AudioStreamPlayer.playing and dragged:
 		$SongProgress/AudioStreamPlayer.seek($SongProgress.value)
 	pass # Replace with function body.
 
+func timecode_text(current: float, length: float, precision: float = 2):
+	var format = "%d:%0{0}.{1}f / %d:%0{0}.{1}f"
+	var offset = 3 if precision > 0 else 2
+	format = format.format([precision + offset, precision])
+	var timecode = format % [ current / 60 , current - (floor(current / 60) * 60),
+	length / 60 , length - (floor(length / 60) * 60)]
+	return timecode
 
 func _on_song_progress_drag_started() -> void:
 	dragged = true

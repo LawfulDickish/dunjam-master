@@ -86,18 +86,24 @@ step = 0.01
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SongProgress"]
 
-[node name="Label" type="Label" parent="SongProgress"]
-layout_mode = 0
+[node name="Timecode" type="Label" parent="SongProgress"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -125.0
 offset_top = 40.0
-offset_right = 79.0
+offset_right = -1.00018
 offset_bottom = 63.0
-text = "0:00 / 0:00"
+grow_horizontal = 0
+text = "0:00.00 / 0:00.00"
+horizontal_alignment = 2
 
 [node name="PlayPause" type="Button" parent="SongProgress"]
 layout_mode = 0
-offset_left = 102.0
+offset_left = 8.0
 offset_top = 36.0
-offset_right = 146.0
+offset_right = 52.0
 offset_bottom = 67.0
 toggle_mode = true
 text = ">  ||
