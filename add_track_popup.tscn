@@ -29,6 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="FilePath" type="LineEdit" parent="."]
 layout_mode = 1
@@ -109,9 +110,63 @@ toggle_mode = true
 text = ">  ||
 "
 
+[node name="Tags" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 216.0
+offset_right = -23.0002
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="ItemList" parent="Tags"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 37.0
+auto_height = true
+text_overrun_behavior = 2
+same_column_width = true
+
+[node name="Input" type="LineEdit" parent="Tags"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -162.0
+offset_bottom = 31.0
+grow_horizontal = 2
+placeholder_text = "Tag name"
+
+[node name="Add" type="Button" parent="Tags"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_right = -82.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Add"
+
+[node name="Remove" type="Button" parent="Tags"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.002
+anchor_right = 1.002
+offset_left = -72.872
+offset_right = -1.87204
+offset_bottom = 31.0
+text = "Remove"
+
 [connection signal="file_selected" from="TrackSelect" to="." method="_on_track_select_file_selected"]
 [connection signal="pressed" from="FilePath/FileSelectButton" to="." method="_on_file_select_button_pressed"]
 [connection signal="drag_ended" from="SongProgress" to="." method="_on_song_progress_drag_ended"]
 [connection signal="drag_started" from="SongProgress" to="." method="_on_song_progress_drag_started"]
 [connection signal="value_changed" from="SongProgress" to="." method="_on_song_progress_value_changed"]
+[connection signal="finished" from="SongProgress/AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="toggled" from="SongProgress/PlayPause" to="." method="_on_play_pause_toggled"]
+[connection signal="pressed" from="Tags/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Tags/Remove" to="." method="_on_remove_pressed"]

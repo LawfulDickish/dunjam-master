@@ -1,7 +1,7 @@
 extends Control
 
 var dragged = false
-
+const SEPARATOR = "|"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,11 +20,11 @@ func _on_file_select_button_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_track_select_file_selected(path: String) -> void:
-	$TagTrack.addtrack(path)
+	$TagTrack.addtrack(path) 
 	$SongProgress/AudioStreamPlayer.stream = $TagTrack.track
 	$SongProgress.max_value = $SongProgress/AudioStreamPlayer.stream.get_length()
 	$SongProgress.value = 0
-	$SongProgress/Timecode.text = timecode_text($SongProgress.value,$SongProgress.max_value)
+	$SongProgress/Timecode.text = timecode_text($SongProgress.value) + " / " + timecode_text($SongProgress.max_value)
 	$SongProgress/PlayPause.button_pressed = false
 	
 	$FilePath.text = path
@@ -42,18 +42,24 @@ func _on_play_pause_toggled(toggled_on: bool) -> void:
 
 
 func _on_song_progress_value_changed(value: float) -> void:
-	$SongProgress/Timecode.text = timecode_text($SongProgress.value,$SongProgress.max_value)
+	$SongProgress/Timecode.text = timecode_text($SongProgress.value) + " / " + timecode_text($SongProgress.max_value)
 	if $SongProgress/AudioStreamPlayer.playing and dragged:
 		$SongProgress/AudioStreamPlayer.seek($SongProgress.value)
 	pass # Replace with function body.
 
-func timecode_text(current: float, length: float, precision: float = 2):
-	var format = "%d:%0{0}.{1}f / %d:%0{0}.{1}f"
+func timecode_text(length: float, precision: float = 2) -> String:
+	var format = "%d:%0{0}.{1}f"
 	var offset = 3 if precision > 0 else 2
 	format = format.format([precision + offset, precision])
-	var timecode = format % [ current / 60 , current - (floor(current / 60) * 60),
-	length / 60 , length - (floor(length / 60) * 60)]
+	var timecode = format % [ length / 60 , length - (floor(length / 60) * 60)]
 	return timecode
+
+func text_timecode(timecode: String):
+	var length
+	var minutes = timecode.split(":")[0] as int
+	var seconds = timecode.split(":")[1] as float
+	length = minutes * 60.0 + seconds
+	return length
 
 func _on_song_progress_drag_started() -> void:
 	dragged = true
@@ -62,4 +68,21 @@ func _on_song_progress_drag_started() -> void:
 
 func _on_song_progress_drag_ended(value_changed: bool) -> void:
 	dragged = false
+	pass # Replace with function body.
+
+
+func _on_audio_stream_player_finished() -> void:
+	$SongProgress/PlayPause.button_pressed = false
+	pass # Replace with function body.
+
+
+func _on_add_pressed() -> void:
+	if !($Tags/Input.text == "" or $Tags/Input.text in $Tags/List):
+		$Tags/List.add_item($Tags/Input.text + SEPARATOR + timecode_text($SongProgress.value))
+	pass # Replace with function body.
+
+
+func _on_remove_pressed() -> void:
+	for select in $Tags/List.get_selected_items():
+		$Tags/List.remove_item(select)
 	pass # Replace with function body.
