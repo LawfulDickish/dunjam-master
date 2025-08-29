@@ -28,6 +28,16 @@ offset_right = 0.499939
 offset_bottom = 0.000244141
 metadata/_edit_use_anchors_ = true
 
+[node name="VSeparator" type="VSeparator" parent="PanelHolder/JukeboxSelection"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.99997
+offset_right = 7.99997
+grow_vertical = 2
+
 [node name="ColorRect" type="ColorRect" parent="PanelHolder/JukeboxSelection"]
 layout_mode = 1
 anchors_preset = 15
@@ -98,9 +108,10 @@ metadata/_edit_use_anchors_ = true
 [node name="BehaviorSection" type="Control" parent="PanelHolder/TrackDependencies"]
 layout_mode = 2
 anchors_preset = 0
-anchor_left = 0.402123
+anchor_left = 0.385
 anchor_right = 0.995283
 anchor_bottom = 1.0
+offset_left = 14.5203
 metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="PanelHolder/TrackDependencies/BehaviorSection"]
@@ -125,8 +136,9 @@ metadata/_edit_use_anchors_ = true
 [node name="InfoSection" type="Control" parent="PanelHolder/TrackDependencies"]
 layout_mode = 2
 anchors_preset = 0
-anchor_right = 0.387972
+anchor_right = 0.388
 anchor_bottom = 1.0
+offset_right = -0.0237732
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -198,12 +210,12 @@ text = "STOP"
 [node name="PopupWindow" type="ConfirmationDialog" parent="."]
 title = "Add TagTrack..."
 position = Vector2i(0, 36)
-size = Vector2i(500, 500)
+size = Vector2i(700, 500)
 
 [node name="AddTrackPopup" parent="PopupWindow" instance=ExtResource("2_hufrx")]
-offset_left = 8.43403
+offset_left = 8.60764
 offset_top = 8.0
-offset_right = 282.365
+offset_right = 398.51
 offset_bottom = 109.179
 
 [connection signal="pressed" from="PanelHolder/JukeboxSelection/ScrollContainer/Buttons/CenterContainer/AddTrack" to="." method="_on_add_track_pressed"]
