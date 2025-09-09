@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://hvkjwb6jw32m"]
+[gd_scene load_steps=3 format=3 uid="uid://hvkjwb6jw32m"]
 
 [ext_resource type="Script" path="res://add_track_popup.gd" id="1_4rbui"]
-[ext_resource type="PackedScene" uid="uid://p4edf6k1vy48" path="res://tag_track.tscn" id="2_ym7ur"]
 [ext_resource type="PackedScene" uid="uid://bw8huqk4q6gpa" path="res://player.tscn" id="3_ds3gb"]
 
 [node name="AddTrackPopup" type="Control"]
@@ -52,8 +51,6 @@ offset_right = 86.0
 offset_bottom = 31.0
 grow_horizontal = 0
 text = "Select..."
-
-[node name="TagTrack" parent="." instance=ExtResource("2_ym7ur")]
 
 [node name="NameInput" type="LineEdit" parent="."]
 layout_mode = 1
@@ -178,7 +175,9 @@ text = "Add at Time"
 
 [connection signal="file_selected" from="TrackSelect" to="." method="_on_track_select_file_selected"]
 [connection signal="pressed" from="FilePath/FileSelectButton" to="." method="_on_file_select_button_pressed"]
+[connection signal="empty_clicked" from="Tags/List" to="." method="_on_list_empty_clicked"]
 [connection signal="item_activated" from="Tags/List" to="." method="_on_list_item_activated"]
+[connection signal="item_selected" from="Tags/List" to="." method="_on_list_item_selected"]
 [connection signal="pressed" from="Tags/Add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Tags/Remove" to="." method="_on_remove_pressed"]
 [connection signal="pressed" from="Tags/AddAtTime" to="." method="_on_add_at_time_pressed"]

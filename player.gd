@@ -11,6 +11,7 @@ func _ready() -> void:
 		$Progress.step = .01
 		$Progress.page = 5
 		$Progress/PlayPause.button_pressed = false
+		$Progress/Timecode.text = timecode_text($Progress.value) + " / " + timecode_text($Progress.max_value)
 	pass 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

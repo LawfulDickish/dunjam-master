@@ -19,8 +19,9 @@ func _on_file_select_button_pressed() -> void:
 func _on_track_select_file_selected(path: String) -> void:
 	$PlayerWidget.load_track_by_file(path)
 	$FilePath.text = path
-	$NameInput.text = path.substr(path.rfind("/")+1,path.rfind(".")-path.rfind("/")-1) 
-	#Auto-completes the name based on the filename by grabbing a substring between the last instance of the path "/" and the filename "."
+	var filename = path.get_file()
+	$NameInput.text = filename.substr(0,filename.rfind('.'))
+	#Auto-completes the name based on the filename by grabbing the slice before the extension in get_file()
 	pass # Replace with function body.
 
 
@@ -41,7 +42,7 @@ func _on_add_pressed() -> void:
 		else:
 			$Tags/List.add_item(name_code)
 		$Tags/Input.text = ""
-	
+	$Tags/List.sort_items_by_text()
 	#Sets the timecode spinners to the current time even if nothing is added to tags
 	set_time_spinners($PlayerWidget/Progress.value)
 	pass 
@@ -54,12 +55,13 @@ func _on_remove_pressed() -> void:
 
 
 func _on_list_item_activated(index: int) -> void:
+	set_time_spinners(get_tag_timecode($Tags/List.get_item_text(index)))
+	$Tags/Input.text = get_tag_name($Tags/List.get_item_text(index))
 	if $PlayerWidget/AudioStreamPlayer.playing:
 		$PlayerWidget/AudioStreamPlayer.seek(get_tag_timecode($Tags/List.get_item_text(index)))
 	else:
 		$PlayerWidget/Progress.value = get_tag_timecode($Tags/List.get_item_text(index))
 	pass 
-
 
 func set_time_spinners(timestamp: float) -> void:
 	$Tags/Minutes.value = floor(timestamp / 60)
@@ -77,4 +79,17 @@ func _on_add_at_time_pressed() -> void:
 		else:
 			$Tags/List.add_item(name_code)
 		$Tags/Input.text = ""
+		$Tags/List.sort_items_by_text()
 	pass 
+
+
+func _on_list_item_selected(index: int) -> void:
+	$Tags/Input.text = get_tag_name($Tags/List.get_item_text(index))
+	pass 
+
+
+func _on_list_empty_clicked(at_position: Vector2, mouse_button_index: int) -> void:
+	if not $Tags/List.get_selected_items().is_empty():
+		$Tags/List.deselect_all()
+		$Tags/Input.text = ""
+	pass # Replace with function body.
