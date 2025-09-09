@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw8huqk4q6gpa"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_2tko4"]
+[ext_resource type="PackedScene" uid="uid://p4edf6k1vy48" path="res://tag_track.tscn" id="1_d052e"]
+
+[node name="SongPlayer" type="Control"]
+layout_mode = 3
+anchor_left = -0.001
+anchor_right = 1.0
+anchor_bottom = 0.117
+offset_left = 0.152
+offset_bottom = 0.183998
+grow_horizontal = 2
+script = ExtResource("1_2tko4")
+
+[node name="TagTrack" parent="." instance=ExtResource("1_d052e")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Volume" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 76.0
+offset_top = -38.0
+offset_right = -143.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+min_value = -75.0
+max_value = 5.0
+tick_count = 20
+ticks_on_borders = true
+
+[node name="Progress" type="HScrollBar" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 12.0
+offset_bottom = 20.0
+grow_horizontal = 2
+rotation = -6.28319
+max_value = 0.0
+custom_step = 30.0
+
+[node name="Timecode" type="Label" parent="Progress"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -124.0
+offset_top = 23.0
+offset_right = -0.000244141
+offset_bottom = 46.0
+grow_horizontal = 0
+text = "0:00.00 / 0:00.00"
+horizontal_alignment = 2
+
+[node name="PlayPause" type="Button" parent="Progress"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 17.0
+offset_right = 51.0
+offset_bottom = 48.0
+toggle_mode = true
+text = ">  ||
+"
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="value_changed" from="Volume" to="." method="_on_volume_value_changed"]
+[connection signal="value_changed" from="Progress" to="." method="_on_progress_value_changed"]
+[connection signal="toggled" from="Progress/PlayPause" to="." method="_on_play_pause_toggled"]

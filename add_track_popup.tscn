@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://hvkjwb6jw32m"]
+[gd_scene load_steps=4 format=3 uid="uid://hvkjwb6jw32m"]
 
 [ext_resource type="Script" path="res://add_track_popup.gd" id="1_4rbui"]
 [ext_resource type="PackedScene" uid="uid://p4edf6k1vy48" path="res://tag_track.tscn" id="2_ym7ur"]
+[ext_resource type="PackedScene" uid="uid://bw8huqk4q6gpa" path="res://player.tscn" id="3_ds3gb"]
 
 [node name="AddTrackPopup" type="Control"]
 layout_mode = 3
@@ -73,42 +74,15 @@ offset_right = -19.0
 offset_bottom = 27.0
 text = "Track Name"
 
-[node name="SongProgress" type="HSlider" parent="."]
+[node name="PlayerWidget" parent="." instance=ExtResource("3_ds3gb")]
 layout_mode = 1
 anchors_preset = 10
-anchor_right = 1.0
+anchor_left = 0.0
+anchor_bottom = 0.0
 offset_left = 25.0
-offset_top = 136.0
-offset_right = -25.0
-offset_bottom = 164.0
-grow_horizontal = 2
-max_value = 0.0
-step = 0.01
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SongProgress"]
-
-[node name="Timecode" type="Label" parent="SongProgress"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -125.0
-offset_top = 40.0
-offset_right = -1.00018
-offset_bottom = 63.0
-grow_horizontal = 0
-text = "0:00.00 / 0:00.00"
-horizontal_alignment = 2
-
-[node name="PlayPause" type="Button" parent="SongProgress"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 36.0
-offset_right = 52.0
-offset_bottom = 67.0
-toggle_mode = true
-text = ">  ||
-"
+offset_top = 122.0
+offset_right = -23.0002
+offset_bottom = 196.0
 
 [node name="Tags" type="Control" parent="."]
 layout_mode = 1
@@ -116,7 +90,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 25.0
-offset_top = 216.0
+offset_top = 196.0
 offset_right = -23.0002
 offset_bottom = -16.0
 grow_horizontal = 2
@@ -126,7 +100,7 @@ grow_vertical = 2
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 37.0
+offset_top = 66.0
 auto_height = true
 text_overrun_behavior = 2
 max_columns = 0
@@ -146,11 +120,11 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -152.0
-offset_right = -82.0
+offset_left = -154.0
+offset_right = -78.0
 offset_bottom = 31.0
 grow_horizontal = 0
-text = "Add"
+text = "Add/Set"
 
 [node name="Remove" type="Button" parent="Tags"]
 layout_mode = 1
@@ -162,13 +136,49 @@ offset_right = -1.87204
 offset_bottom = 31.0
 text = "Remove"
 
+[node name="Minutes" type="SpinBox" parent="Tags"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = 33.0
+offset_right = 83.0625
+offset_bottom = 64.0
+alignment = 1
+select_all_on_focus = true
+
+[node name="Seconds" type="SpinBox" parent="Tags"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 87.0
+offset_top = 33.0
+offset_right = 170.063
+offset_bottom = 64.0
+max_value = 59.0
+alignment = 1
+select_all_on_focus = true
+
+[node name="Milliseconds" type="SpinBox" parent="Tags"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 175.0
+offset_top = 33.0
+offset_right = 258.063
+offset_bottom = 64.0
+max_value = 99.0
+alignment = 1
+select_all_on_focus = true
+
+[node name="AddAtTime" type="Button" parent="Tags"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 267.0
+offset_top = 33.0
+offset_right = 368.0
+offset_bottom = 64.0
+text = "Add at Time"
+
 [connection signal="file_selected" from="TrackSelect" to="." method="_on_track_select_file_selected"]
 [connection signal="pressed" from="FilePath/FileSelectButton" to="." method="_on_file_select_button_pressed"]
-[connection signal="drag_ended" from="SongProgress" to="." method="_on_song_progress_drag_ended"]
-[connection signal="drag_started" from="SongProgress" to="." method="_on_song_progress_drag_started"]
-[connection signal="value_changed" from="SongProgress" to="." method="_on_song_progress_value_changed"]
-[connection signal="finished" from="SongProgress/AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
-[connection signal="toggled" from="SongProgress/PlayPause" to="." method="_on_play_pause_toggled"]
 [connection signal="item_activated" from="Tags/List" to="." method="_on_list_item_activated"]
 [connection signal="pressed" from="Tags/Add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Tags/Remove" to="." method="_on_remove_pressed"]
+[connection signal="pressed" from="Tags/AddAtTime" to="." method="_on_add_at_time_pressed"]
